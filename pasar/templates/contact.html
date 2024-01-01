@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h1>Contact Us</h1>
+    <p>Jangan ragu untuk menghubungi kami. Isi formulir di bawah atau gunakan informasi kontak di bawah.</p>
+
+    <!-- Formulir Kontak -->
+    <form action="https://formspree.io/f/mzblqppa" method="POST">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nama Anda</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Alamat Email</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="message" class="form-label">Pesan Anda</label>
+        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+    </form>
+
+    <!-- Informasi Kontak -->
+    <div class="mt-4">
+      <h4>Informasi Kontak</h4>
+      <p>Email: fjaringalzulizar@gmail.com</p>
+      <p>Telepon: +62 857 1672 2388</p>
+      <p>Instagram: falzulizar</p>
+      <br>
+    </div>
+  </div>
+  {% endblock content %}

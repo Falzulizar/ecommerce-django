@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Aplikasi PasarOnline" />
+    <title>Pasar Online</title>
+    <style>
+      .card {
+        width: 19rem;
+      }
+      .card-text {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .aspect-ratio {
+        position: relative;
+        overflow: hidden;
+        padding-top: 130%; /* Rasio 1:1 (untuk rasio gambar 1:1) */
+      }
+
+      .aspect-ratio img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Gambar akan diatur sesuai rasio aspek dan memotong jika perlu */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-3">
+      <h2>Daftar Barang</h2>
+      <!-- form pencarian -->
+      <form action="" class="mb-3">
+        <div class="input-group">
+          <input type="text" class="form-control" name="search" placeholder="Cari barang...">
+          <button type="submit" class="btn btn-primary">Cari</button>
+        </div>
+      </form>
+
+      <!-- Tampilkan pesan pencarian -->
+      {% if searchBarang %}
+      <div class="mt-2">
+        <p>Pencarian untuk <strong>{{ searchBarang }}</strong></p>
+      </div>
+      {% endif %}
+
+      <!-- Daftar barang -->
+      <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+        {% for barang in daftar_barang %}
+        <div class="col-md-4 mb-4">
+          <div class="card" style="width: 13rem;">
+            <div class="ratio ratio-1x1">
+              <img src="{{ barang.gambar.url }}" class="card-img-top" alt="{{ barang.nama }}">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ barang.nama }}</h5>
+              <p class="card-text">{{ barang.keterangan }}</p>
+              <p class="card-text">Harga: Rp {{ barang.harga }}</p>
+              <a href="{% url 'detail' barang.id %}" class="btn btn-primary"
+                >Order <i class="fa-solid fa-cart-plus"></i></a
+              >
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </body>
+</html>
+{% endblock content %}

@@ -1,0 +1,61 @@
+<!-- order_summary.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container mt-4">
+    <h1 class="mb-3">Order Summary</h1>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <h4 class="fw-semibold">Informasi Pemesan</h4>
+          <p>Nama Pemesan: {{ nama_pemesan }}</p>
+          <p>Nomor HP: {{ nomor_hp }}</p>
+          <!-- Tambahan informasi pemesan sesuai kebutuhan -->
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        {% if cart_items %}
+          <div class="mb-3">
+            <h4>Detail Pesanan</h4>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in cart_items %}
+                    <tr>
+                      <td>{{ item.barang.nama }}</td>
+                      <td>Rp{{ item.barang.harga }}</td>
+                      <td>{{ item.quantity }}</td>
+                      <td>Rp{{ item.item_total }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        {% else %}
+          <p>Tidak ada item dalam pesanan.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <h4 class="fw-semibold">Informasi Tambahan</h4>
+      <p>Alamat Pengiriman: {{ alamat_pengiriman }}</p>
+      <p>Metode Pembayaran: {{ metode_pembayaran }}</p>
+      <p>Catatan Tambahan: {{ catatan_tambahan }}</p>
+      <!-- Tambahan informasi lainnya sesuai kebutuhan -->
+    </div>
+
+    <!-- Tambahkan tombol atau informasi lainnya sesuai kebutuhan -->
+  </div>
+{% endblock content %}

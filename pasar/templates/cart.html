@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if messages %}
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-12">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="container mt-4">
+  <div class="table-responsive">
+    <table class="table table-bordered text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>Item</th>
+          <th>Harga</th>
+          <th>Jumlah</th>
+          <th>Sub total</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+        <tr>
+          <td>{{ item.barang.nama }}</td>
+          <td>Rp{{ item.barang.harga }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>Rp{{ item.item_total }}</td>
+          <td>
+            {% if item.barang.id %}
+            <a href="{% url 'remove_from_cart' item.barang.id %}" onclick="return confirm('Hapus pesanan?')">
+              <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+            </a>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5">Tidak ada item dalam keranjang.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mt-3">Total : Rp{{ total_price }}</p>
+  <a href="{% url 'home' %}" class="btn btn-warning">Cancel</a>
+  <a href="{% url 'checkout' %}" class="btn btn-primary">Checkout</a>
+</div>
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="post" action="{% url 'checkout' %}">
+        {% csrf_token %}
+        <h2 class="mb-4">Checkout</h2>
+
+        <div class="mb-3">
+          <label for="nama_pemesan" class="form-label">Nama Pemesan:</label>
+          <input type="text" class="form-control" name="nama_pemesan" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="nomor_hp" class="form-label">Nomor HP:</label>
+          <input type="text" class="form-control" name="nomor_hp" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="alamat" class="form-label">Alamat Pengiriman:</label>
+          <textarea class="form-control" name="alamat_pengiriman" rows="3" required></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="metode_pembayaran" class="form-label">Metode Pembayaran:</label>
+          <select class="form-select" name="metode_pembayaran" required>
+            <option value="" disabled selected>Pilih Metode Pembayaran</option>
+            <option value="transfer">Transfer Bank</option>
+            <option value="cod">Bayar di Tempat</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="catatan" class="form-label">Catatan Tambahan:</label>
+          <textarea class="form-control" name="catatan_tambahan" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary mb-3">Beli</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

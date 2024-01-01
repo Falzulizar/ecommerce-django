@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mt-5">
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="card" style="width: 80%; border: 0;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{ barang.gambar.url }}" class="img-fluid rounded-start portrait-image" alt="Product Image"/>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h2 class="card-title">{{ barang.nama }}</h2>
+                <p class="card-text">{{ barang.keterangan }}</p>
+                <p class="card-text">Harga: Rp {{ barang.harga }}</p>
+                <p class="card-text">Stok: {{ stok }}</p>
+                <p class="card-text">Tersedia: {% if barang.tersedia == '1' %} Ya {% else %} Tidak {% endif %}</p>
+                
+                {% if stok > 0 %}
+                  <form method="post" action="{% url 'add_to_cart' barang.id %}">
+                    {% csrf_token %}
+                    <label for="quantity" class="form-label">Jumlah Pesanan:</label>
+                    <div class="input-group mb-3">
+                      <input type="number" class="form-control" name="quantity" id="quantity" value="1" min="1">
+                      <button type="submit" class="btn btn-primary">Pesan <i class="fa-solid fa-truck-fast"></i></button>
+                    </div>
+                  </form>
+                {% else %}
+                  <div class="alert alert-danger" role="alert">
+                    Maaf, stok barang ini telah habis.
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      .portrait-image {
+        height: 100%; /* Set height to 100% to maintain 1:1 aspect ratio */
+        object-fit: cover; /* Ensure the image covers the entire container */
+      }
+    </style>
+{% endblock content %}
